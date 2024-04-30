@@ -32,4 +32,9 @@ public class TaskController {
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }
+
+    @GetMapping("/all")
+    public Iterable<Task> getAllTasks() {
+        return taskService.getAllTasks();
+    }
 }

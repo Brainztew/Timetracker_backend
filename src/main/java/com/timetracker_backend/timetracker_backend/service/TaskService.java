@@ -18,5 +18,9 @@ public class TaskService {
         mongoOperations.save(task);
         return task;
     }
+
+    public Iterable<Task> getAllTasks() {
+        return mongoOperations.findAll(Task.class);
+    }
     
 }
