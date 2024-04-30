@@ -22,5 +22,11 @@ public class TaskService {
     public Iterable<Task> getAllTasks() {
         return mongoOperations.findAll(Task.class);
     }
+
+    public Task deleteTask(String id) {
+        Task task = mongoOperations.findById(id, Task.class);
+        mongoOperations.remove(task);
+        return task;
+    }
     
 }
