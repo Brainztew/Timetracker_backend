@@ -3,6 +3,7 @@ package com.timetracker_backend.timetracker_backend.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,11 @@ public class TaskController {
     @DeleteMapping("/delete/{id}")
     public void deleteTask(@PathVariable String id) {
         taskService.deleteTask(id);
+    }
+
+    @PatchMapping("/update/{id}")
+    public Task updateTask(@PathVariable String id, @RequestBody Task task) {
+        return taskService.updateTask(id, task);
     }
 
 }

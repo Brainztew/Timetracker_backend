@@ -28,5 +28,12 @@ public class TaskService {
         mongoOperations.remove(task);
         return task;
     }
+
+    public Task updateTask(String id, Task task) {
+        Task existingTask = mongoOperations.findById(id, Task.class);
+        existingTask.setName(task.getName());
+        mongoOperations.save(existingTask);
+        return existingTask;
+    }
     
 }
