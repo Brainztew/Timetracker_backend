@@ -2,11 +2,11 @@ package com.timetracker_backend.timetracker_backend.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,7 +18,22 @@ public class Task {
     private String name;
     private List<Interval> intervals = new ArrayList<>();
     private boolean timerRunning = false;
+    @DBRef
+    private User user;
+    private String userId;
 
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public User getUser() {
+         return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
     public boolean isTimerRunning() {
         return timerRunning;
     }

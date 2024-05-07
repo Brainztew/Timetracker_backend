@@ -1,12 +1,18 @@
 package com.timetracker_backend.timetracker_backend.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import com.timetracker_backend.timetracker_backend.model.Task;
 
+
 @Service
 public class TaskService {
+    @Autowired
+    private TaskRepository taskRepository;
 
     private final MongoOperations mongoOperations;
 
@@ -14,9 +20,9 @@ public class TaskService {
         this.mongoOperations = mongoOperations;
     }
 
-    public Task createTask(Task task) {
-        mongoOperations.save(task);
-        return task;
+    public Task createTask(Task task, String userId) {
+        task.setUserId(userId);
+        return taskRepository.save(task);
     }
 
     public Task getTask(String id) {
@@ -31,21 +37,24 @@ public class TaskService {
         return mongoOperations.findAll(Task.class);
     }
 
-    public Task deleteTask(String id) {
+    public Task deleteTask(String id, String userId) {
         Task task = mongoOperations.findById(id, Task.class);
+        task.setUserId(userId);
         mongoOperations.remove(task);
         return task;
     }
 
-    public Task updateTask(String id, Task task) {
+    public Task updateTask(String id, Task task, String userId) {
         Task existingTask = mongoOperations.findById(id, Task.class);
+        task.setUserId(userId);
         existingTask.setName(task.getName());
         mongoOperations.save(existingTask);
         return existingTask;
     }
 
-    public Task startTask(String id) {
+    public Task startTask(String id, String userId) {
         Task task = mongoOperations.findById(id, Task.class);
+        task.setUserId(userId);
         task.setTimerRunning(true);
         task.start();
         mongoOperations.save(task);
@@ -67,4 +76,9 @@ public class TaskService {
         }
         return task.getTotalDuration();
     }
+
+    public List<Task> getUserTasks(String userId) {
+        return taskRepository.findByUserId(userId);
+    }
+    
 }
