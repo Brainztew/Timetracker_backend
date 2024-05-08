@@ -21,7 +21,14 @@ public class Task {
     @DBRef
     private User user;
     private String userId;
+    private long duration;
 
+    public long getDuration() {
+        return duration;
+    }
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
     public String getUserId() {
         return userId;
     }
