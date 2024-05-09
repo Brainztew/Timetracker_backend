@@ -32,10 +32,10 @@ public class UserController {
         return userservice.getAllUsers(userId);
     }
 
-/*     @PostMapping("/login")
-    public ResponseEntity<String>  login(@RequestBody Map<String, String> credentials) {
-        return userservice.login( credentials.get("username"), credentials.get("password"));
-    } */
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello From Backend!";
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
