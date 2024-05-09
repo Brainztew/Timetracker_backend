@@ -1,6 +1,5 @@
 package com.timetracker_backend.timetracker_backend.service;
 
-import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -10,5 +9,5 @@ public interface UserRepository extends MongoRepository<User, String>{
     User findByUsername(String username);
 
 
-    User findByUsernameAndPassword(String username, String password);
+    /* User findByUsernameAndPassword(String username, String password); */
 }

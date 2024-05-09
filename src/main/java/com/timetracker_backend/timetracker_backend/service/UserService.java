@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.timetracker_backend.timetracker_backend.model.Task;
@@ -18,15 +17,21 @@ import com.timetracker_backend.timetracker_backend.model.UserTotal;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final BCryptPasswordEncoder passwordEncoder;
     private final TaskRepository taskRepository;
 
-    public UserService(UserRepository userRepository, TaskRepository taskRepository) {
+    public UserService(UserRepository userRepository, TaskRepository taskRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("User already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
@@ -61,8 +66,11 @@ public class UserService {
     } */
 
  public Map<String, Object> login(String username, String password) {
-    User user = userRepository.findByUsernameAndPassword(username, password);
+    User user = userRepository.findByUsername(username);
     if (user == null) {
+        throw new RuntimeException("Invalid username or password");
+    }
+    if (!passwordEncoder.matches(password, user.getPassword())) {
         throw new RuntimeException("Invalid username or password");
     }
     Map<String, Object> response = new HashMap<>();

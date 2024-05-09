@@ -17,7 +17,7 @@ import com.timetracker_backend.timetracker_backend.service.TaskService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://urchin-app-5gnrf.ondigitalocean.app")
 @RestController
 @RequestMapping("/task")
 public class TaskController {

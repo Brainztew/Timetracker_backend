@@ -39,33 +39,41 @@ public class TaskService {
 
     public Task deleteTask(String id, String userId) {
         Task task = mongoOperations.findById(id, Task.class);
-        task.setUserId(userId);
-        mongoOperations.remove(task);
+        if (task != null) {
+            task.setUserId(userId);
+            mongoOperations.remove(task);
+        }
         return task;
     }
 
     public Task updateTask(String id, Task task, String userId) {
         Task existingTask = mongoOperations.findById(id, Task.class);
-        task.setUserId(userId);
-        existingTask.setName(task.getName());
-        mongoOperations.save(existingTask);
+        if (existingTask != null) {
+            task.setUserId(userId);
+            existingTask.setName(task.getName());
+            mongoOperations.save(existingTask);
+        }
         return existingTask;
     }
 
     public Task startTask(String id, String userId) {
         Task task = mongoOperations.findById(id, Task.class);
-        task.setUserId(userId);
-        task.setTimerRunning(true);
-        task.start();
-        mongoOperations.save(task);
+        if (task != null) {
+            task.setUserId(userId);
+            task.setTimerRunning(true);
+            task.start();
+            mongoOperations.save(task);
+        }
         return task;
     }
 
     public Task endTask(String id) {
         Task task = mongoOperations.findById(id, Task.class);
-        task.setTimerRunning(false);
-        task.end();
-        mongoOperations.save(task);
+        if (task != null) {
+            task.setTimerRunning(false);
+            task.end();
+            mongoOperations.save(task);
+        }
         return task;
     }
 
