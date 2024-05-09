@@ -53,18 +53,6 @@ public class UserService {
         .collect(Collectors.toList());
     }
 
-/*     public ResponseEntity<String> login(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
-        }
-        if (!user.getPassword().equals(password)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password!");
-        }
-    
-        return ResponseEntity.ok(user.getId());
-    } */
-
  public Map<String, Object> login(String username, String password) {
     User user = userRepository.findByUsername(username);
     if (user == null) {
