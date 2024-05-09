@@ -16,7 +16,7 @@ import com.timetracker_backend.timetracker_backend.model.User;
 import com.timetracker_backend.timetracker_backend.model.UserTotal;
 import com.timetracker_backend.timetracker_backend.service.UserService;
 
-@CrossOrigin(origins = "https://urchin-app-5gnrf.ondigitalocean.app")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping ("/user")
 public class UserController {
