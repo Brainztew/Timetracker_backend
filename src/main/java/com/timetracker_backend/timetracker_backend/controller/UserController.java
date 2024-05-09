@@ -1,6 +1,5 @@
 package com.timetracker_backend.timetracker_backend.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.timetracker_backend.timetracker_backend.model.User;
 import com.timetracker_backend.timetracker_backend.model.UserTotal;
-import com.timetracker_backend.timetracker_backend.service.UserRepository;
 import com.timetracker_backend.timetracker_backend.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://urchin-app-5gnrf.ondigitalocean.app")
 @RestController
 @RequestMapping ("/user")
 public class UserController {
 
     private UserService userservice;
-    private UserRepository userRepository;
 
     public UserController(UserService userservice) {
         this.userservice = userservice;
@@ -46,7 +43,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
     
-
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userservice.createUser(user);
